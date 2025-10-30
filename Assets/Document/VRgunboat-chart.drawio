@@ -22,14 +22,11 @@
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-7" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="530" y="490" width="350" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-8" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="40" y="490" width="470" height="210" as="geometry" />
-        </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-9" value="LoadSW" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="350" y="510" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-10" value="エア基板" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="350" y="610" width="120" height="60" as="geometry" />
+          <mxGeometry x="150" y="620" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-11" value="" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=16;endSize=16;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;startArrow=classic;startFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-12" target="pQJ2UA4PGWdk1iYAKSUe-10" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -38,10 +35,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-12" value="エアシリンダ" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="350" y="800" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-13" value="モーター" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="150" y="800" width="120" height="60" as="geometry" />
+          <mxGeometry x="150" y="795" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-14" value="ESP32" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="575" y="510" width="120" height="60" as="geometry" />
@@ -49,34 +43,16 @@
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-15" value="ロードセル" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="575" y="610" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-16" target="pQJ2UA4PGWdk1iYAKSUe-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-16" value="USB2CANFD" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="150" y="510" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-17" value="モーター基板" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="150" y="610" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-18" value="" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=16;endSize=16;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=classic;startFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-13" target="pQJ2UA4PGWdk1iYAKSUe-17" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="209.5" y="760" as="sourcePoint" />
-            <mxPoint x="209.5" y="680" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-19" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-17" target="pQJ2UA4PGWdk1iYAKSUe-16" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="200" y="800" as="sourcePoint" />
-            <mxPoint x="200" y="720" as="targetPoint" />
-          </mxGeometry>
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-20" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-9" target="pQJ2UA4PGWdk1iYAKSUe-16" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="410" y="610" as="sourcePoint" />
             <mxPoint x="410" y="590" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="pQJ2UA4PGWdk1iYAKSUe-21" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-10" target="pQJ2UA4PGWdk1iYAKSUe-16" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="280" y="660" as="sourcePoint" />
-            <mxPoint x="280" y="580" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="pQJ2UA4PGWdk1iYAKSUe-22" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=13;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=none;startFill=0;endFill=1;" parent="1" source="pQJ2UA4PGWdk1iYAKSUe-15" target="pQJ2UA4PGWdk1iYAKSUe-14" edge="1">
@@ -204,6 +180,24 @@
         </mxCell>
         <mxCell id="K-jnSiiK8jrjsHDx-08f-10" value="細かいゲームの実装内容は&lt;div&gt;後々書いていく&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="460" y="-170" width="246" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-13" value="&lt;div&gt;ON / OFFするスイッチ？&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;電源制御？&lt;/span&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="354" y="590" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-14" value="加速度センサ" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="735" y="540" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-15" value="圧力センサ" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="562.5" y="640" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-16" value="マイコン" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="575" y="540" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-17" value="OSCライブラリ" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="340" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="K-jnSiiK8jrjsHDx-08f-18" value="ゲーム進行管理" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="354" y="30" width="145" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
