@@ -224,10 +224,7 @@ Shader "Custom/Waves"
 
 			half4 ProcessFragment(Varyings input) : SV_Target
 			{
-				// 頂点シェーダーで計算した法線を使う
-				// const half3 surfaceNormal = normalize(input.normalWS);
-
-				// ピクセルごとの座標で計算した法線を使う (頂点シェーダー計算より綺麗だけど重くなる)
+				// ピクセルごとの座標で計算した法線
 				const float2 xy = input.positionWS.xz;
 				const float t = _Time.y;
 				const Param param1 = InitParam(xy, _QRatio1, _Amplitude1, float2(_Direction1X, _Direction1Z), t, _WaveLength1, _Speed1);
@@ -235,12 +232,20 @@ Shader "Custom/Waves"
 				const Param param3 = InitParam(xy, _QRatio3, _Amplitude3, float2(_Direction3X, _Direction3Z), t, _WaveLength3, _Speed3);
 				const half3 surfaceNormal = normalize(N(param1, param2, param3).xzy);
 
+				// 光の計算
 				const float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
 				const Light light = GetMainLight(shadowCoord);
 				const float NoL = saturate(dot(surfaceNormal, light.direction));
 				const half3 diffuse = _Albedo.rgb * light.color * NoL;
-				return half4(diffuse, 1);
+
+				float3 heightColor = float3(0.0, 0.1, 0.4);  // 水面の色（濃い青）
+
+				// 拡散反射に固定色を掛ける
+				float3 finalColor = diffuse * heightColor;
+
+				return half4(finalColor, 1);
 			}
+
 			ENDHLSL
 		}
 	}
