@@ -3,6 +3,10 @@ Shader "Custom/Waves"
     Properties
 	{
 		_Albedo ("Albedo", Color) = (1, 1, 1, 1)
+
+		[Header(Global Direction)]
+		_DirectionGlobalX ("Global Direction X", Range(-1, 1)) = 1
+		_DirectionGlobalZ ("Global Direction Z", Range(-1, 1)) = 0
 		
 		[Header(Wave1)]
 		[MaterialToggle] _Active1 ("Active1", Float) = 1
@@ -47,6 +51,10 @@ Shader "Custom/Waves"
 
 		CBUFFER_START(UnityPerMaterial)
 		float4 _Albedo;
+
+		// Global direction
+		float _DirectionGlobalX;
+		float _DirectionGlobalZ;
 
 		float _Active1;
 		float _Direction1X;
@@ -116,6 +124,19 @@ Shader "Custom/Waves"
 				float cosTheta;
 				float2 D;
 			};
+			
+			float2 RotateDirection(float2 baseDir, float2 globalDir)
+			{
+				baseDir = normalize(baseDir);
+				globalDir = normalize(globalDir);
+
+				float angle = atan2(globalDir.y, globalDir.x);
+				float2 rotatedDir;
+				rotatedDir.x = baseDir.x * cos(angle) - baseDir.y * sin(angle);
+				rotatedDir.y = baseDir.x * sin(angle) + baseDir.y * cos(angle);
+
+				return normalize(rotatedDir);
+			}
 
 			Param InitParam(const float2 xy, const half QRatio, const half A, const float2 D, const float t, const float L, const float S)
 			{
@@ -135,24 +156,12 @@ Shader "Custom/Waves"
 				return param;
 			}
 
-			/// <summary>
-			/// 位置ずれ
-			/// </summary>
 			float3 CalculateSumTermOfShiftPosition(const in Param param)
 			{
 				return float3(
 					param.Q * param.A * param.D.x * param.cosTheta,
 					param.Q * param.A * param.D.y * param.cosTheta,
 					param.A * param.sinTheta
-				);
-			}
-
-			float3 CalculateSumTermOfNormal(const in Param param)
-			{
-				return float3(
-					param.D.x * param.WA * param.cosTheta,
-					param.D.y * param.WA * param.cosTheta,
-					param.Q * param.WA * param.sinTheta
 				);
 			}
 
@@ -192,6 +201,7 @@ Shader "Custom/Waves"
 					- (bitangentTerm1.y + bitangentTerm2.y + bitangentTerm3.y),
 					(bitangentTerm1.z + bitangentTerm2.z + bitangentTerm3.z)
 				));
+
 				const float3 tangentTerm1 = CalculateSumTermOfTangent(param1) * _Active1;
 				const float3 tangentTerm2 = CalculateSumTermOfTangent(param2) * _Active2;
 				const float3 tangentTerm3 = CalculateSumTermOfTangent(param3) * _Active3;
@@ -200,7 +210,7 @@ Shader "Custom/Waves"
 					1 - (tangentTerm1.y + tangentTerm2.y + tangentTerm3.y),
 					(tangentTerm1.z + tangentTerm2.z + tangentTerm3.z)
 				));
-				// 法線の式だけから計算するより接線と従接線の外積で法線計算した方が綺麗になる模様
+
 				return normalize(cross(bitangent, tangent));
 			}
 
@@ -208,39 +218,48 @@ Shader "Custom/Waves"
 			{
 				float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
 
-				// Gemsに合わせて記号は水平平面をxyとしている。実際はxz平面なので渡すのはxz。
 				const float2 xy = positionWS.xz;
 				const float t = _Time.y;
-				const Param param1 = InitParam(xy, _QRatio1, _Amplitude1, float2(_Direction1X, _Direction1Z), t, _WaveLength1, _Speed1);
-				const Param param2 = InitParam(xy, _QRatio2, _Amplitude2, float2(_Direction2X, _Direction2Z), t, _WaveLength2, _Speed2);
-				const Param param3 = InitParam(xy, _QRatio3, _Amplitude3, float2(_Direction3X, _Direction3Z), t, _WaveLength3, _Speed3);
+
+				const float2 globalDir = float2(_DirectionGlobalX, _DirectionGlobalZ);
+
+				const float2 dir1 = RotateDirection(float2(_Direction1X, _Direction1Z), globalDir);
+				const float2 dir2 = RotateDirection(float2(_Direction2X, _Direction2Z), globalDir);
+				const float2 dir3 = RotateDirection(float2(_Direction3X, _Direction3Z), globalDir);
+
+				const Param param1 = InitParam(xy, _QRatio1, _Amplitude1, dir1, t, _WaveLength1, _Speed1);
+				const Param param2 = InitParam(xy, _QRatio2, _Amplitude2, dir2, t, _WaveLength2, _Speed2);
+				const Param param3 = InitParam(xy, _QRatio3, _Amplitude3, dir3, t, _WaveLength3, _Speed3);
 
 				Varyings output = (Varyings)0;
 				output.positionWS = P(xy, param1, param2, param3).xzy;
 				output.positionCS = TransformWorldToHClip(output.positionWS);
-				// output.normalWS = N(param1, param2, param3).xzy;
 				return output;
 			}
 
 			half4 ProcessFragment(Varyings input) : SV_Target
 			{
-				// ピクセルごとの座標で計算した法線
 				const float2 xy = input.positionWS.xz;
 				const float t = _Time.y;
-				const Param param1 = InitParam(xy, _QRatio1, _Amplitude1, float2(_Direction1X, _Direction1Z), t, _WaveLength1, _Speed1);
-				const Param param2 = InitParam(xy, _QRatio2, _Amplitude2, float2(_Direction2X, _Direction2Z), t, _WaveLength2, _Speed2);
-				const Param param3 = InitParam(xy, _QRatio3, _Amplitude3, float2(_Direction3X, _Direction3Z), t, _WaveLength3, _Speed3);
+
+				const float2 globalDir = float2(_DirectionGlobalX, _DirectionGlobalZ);
+
+				const float2 dir1 = RotateDirection(float2(_Direction1X, _Direction1Z), globalDir);
+				const float2 dir2 = RotateDirection(float2(_Direction2X, _Direction2Z), globalDir);
+				const float2 dir3 = RotateDirection(float2(_Direction3X, _Direction3Z), globalDir);
+
+				const Param param1 = InitParam(xy, _QRatio1, _Amplitude1, dir1, t, _WaveLength1, _Speed1);
+				const Param param2 = InitParam(xy, _QRatio2, _Amplitude2, dir2, t, _WaveLength2, _Speed2);
+				const Param param3 = InitParam(xy, _QRatio3, _Amplitude3, dir3, t, _WaveLength3, _Speed3);
+
 				const half3 surfaceNormal = normalize(N(param1, param2, param3).xzy);
 
-				// 光の計算
 				const float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
 				const Light light = GetMainLight(shadowCoord);
 				const float NoL = saturate(dot(surfaceNormal, light.direction));
 				const half3 diffuse = _Albedo.rgb * light.color * NoL;
 
-				float3 heightColor = float3(0.0, 0.1, 0.4);  // 水面の色（濃い青）
-
-				// 拡散反射に固定色を掛ける
+				float3 heightColor = float3(0.0, 0.1, 0.4);
 				float3 finalColor = diffuse * heightColor;
 
 				return half4(finalColor, 1);
