@@ -15,6 +15,8 @@ public class RiverSplineBinder : MonoBehaviour
     // デバッグ用に最後に処理した頂点情報を保持
     private Vector3[] debugVerts;
     private Vector3[] debugNormals;
+    
+    
 
     void Start()
     {
@@ -42,7 +44,9 @@ public class RiverSplineBinder : MonoBehaviour
         debugVerts = new Vector3[vCount];
         debugNormals = new Vector3[vCount];
 
-        Vector3 right = Vector3.right;
+        Vector3[] rights = new Vector3[vCount];   // ★ 頂点ごとの right を保持
+
+        Vector3 prevRight = Vector3.right;        // ★ 向きの継続性を見る用
 
         for (int i = 0; i < vCount; i++)
         {
@@ -55,9 +59,19 @@ public class RiverSplineBinder : MonoBehaviour
             float3 tangentF3 = spline.EvaluateTangent(t);
             Vector3 tangent = new Vector3(tangentF3.x, tangentF3.y, tangentF3.z).normalized;
 
-            // スプラインに垂直な右方向
-            right = Vector3.Cross(Vector3.up, tangent).normalized;
+            // スプラインに垂直な右方向（ワールド）
+            Vector3 right = Vector3.Cross(Vector3.up, tangent);
+            if (right.sqrMagnitude < 1e-6f)
+                right = Vector3.right;
+            else
+                right.Normalize();
 
+            // ★ ここがポイント：前の right と向きを揃える
+            if (i > 0 && Vector3.Dot(right, prevRight) < 0f)
+            {
+                right = -right;
+            }
+            prevRight = right;
             // ローカル座標に変換
             verts[i] = center;
 
@@ -69,6 +83,9 @@ public class RiverSplineBinder : MonoBehaviour
 
             // 法線を補正（川面がスプライン平面に沿う）
             normals[i] = Vector3.Cross(right, tangent).normalized;
+            
+            // ★ per-vertex の right を保存
+            rights[i] = right;
             
             // デバッグ用に情報を保存
             debugVerts[i] = verts[i];
@@ -90,14 +107,16 @@ public class RiverSplineBinder : MonoBehaviour
         // 左右作成（左=-riverWidth/2, 右=+riverWidth/2）
         for (int i=0;i<vCount;i++)
         {
+            Vector3 basePos = verts[i];
+            Vector3 right   = rights[i];     // ★ 各頂点ごとの right を使用
             // 左
-            verts2[i]     = verts[i] - right * (riverWidth * 0.5f);
+            verts2[i]     = basePos - right * (riverWidth * 0.5f);
             normals2[i]   = normals[i];
             tangents2[i]  = tangents[i];
             uv2_2[i]      = uv2[i];
 
             // 右
-            verts2[i+vPerSide] = verts[i] + right * (riverWidth * 0.5f);
+            verts2[i+vPerSide] = basePos + right * (riverWidth * 0.5f);
             normals2[i+vPerSide] = normals[i];
             tangents2[i+vPerSide] = tangents[i];
             uv2_2[i+vPerSide] = uv2[i];
