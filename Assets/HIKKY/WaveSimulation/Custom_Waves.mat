@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_Waves
+  m_Shader: {fileID: 4800000, guid: 2ecfe3a3ed21d8749a8c0032435fd91f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ACTIVE1_ON
+  - _ACTIVE2_ON
+  - _ACTIVE3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _Active1: 1
+    - _Active2: 1
+    - _Active3: 1
+    - _Amplitude1: 0.1
+    - _Amplitude2: 0.07
+    - _Amplitude3: 0.04
+    - _Direction1X: 1
+    - _Direction1Z: 0
+    - _Direction2X: 0.8
+    - _Direction2Z: 0.3
+    - _Direction3X: 0.1
+    - _Direction3Z: 0.08
+    - _DirectionGlobalX: 1
+    - _DirectionGlobalZ: 0
+    - _QRatio1: 0.25
+    - _QRatio2: 0.34
+    - _QRatio3: 0.5
+    - _Speed1: 0.2
+    - _Speed2: 0.5
+    - _Speed3: 0.6
+    - _WaveLength1: 3
+    - _WaveLength2: 1.5
+    - _WaveLength3: 0.9
+    m_Colors:
+    - _Albedo: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
