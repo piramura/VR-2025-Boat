@@ -21,9 +21,14 @@ public class GerstnerWaveSync : MonoBehaviour
         if (_renderer == null) _renderer = GetComponent<Renderer>();
         if (_renderer == null) return;
 
-        // インスタンス化されたマテリアルを使う（個別設定を想定）
-        _material = _renderer.material;
-
+        if (Application.isPlaying)
+        {
+            _material = _renderer.material;
+        }
+        else
+        {
+            _material = _renderer.sharedMaterial;
+        }
         SyncFromMaterial();
     }
 
